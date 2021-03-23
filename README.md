@@ -1,6 +1,6 @@
 # API Laravel
 
-API em Laravel 8 criada como exercício, para acessar e modificar dados fictícios de um hospital e ser consumida por um front-end em um projeto futuro.
+API em Laravel 8 criada como Teste, feito junto com o front-end em Vue e Bootstrap.
 
 ## Instalação
 
@@ -9,7 +9,8 @@ Para instalar as dependências:
 composer install
 ``` 
 
-Antes de realizar de criar as tabelas modifique o arquivo .env com as configurações do seu Banco de Dados, este repositório utiliza o BD MySQL.
+Antes de criar as tabelas modifique o arquivo .env com as configurações do seu Banco de Dados.
+Ex:
 ```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -34,11 +35,13 @@ Para rodar o servidor embutido do PHP:
 php artisan serve
 ```
 
-## Funcionamento
+Para abrir a aplicação basta abrir o arquivo index.html na pasta Frontend.
+
+## Funcionamento da API
 
 Existem dois tipos de recursos, Users e Customers. Users são os usuários e podem modificar o recurso Customers (clientes) à vontade, mas devem estar logados. Users podem modificar apenas o usuário logado. É possível registrar novos usuários, ao registrar automaticamente o novo usuário está logado. Os endpoints retornam os dados em json. Para inserir dados por meio da API, os campos devem estar no body da requisição HTTP.
 
-## Requisitos
+### Requisitos
     - Users
         -   name string not null
         -   email string not null
@@ -64,7 +67,7 @@ Existem dois tipos de recursos, Users e Customers. Users são os usuários e pod
         -   organ_rg string
         -   cpf string
 
-## Endpoints
+### Endpoints
 
 | Verbo HTTP | Endpoint           | Ação                                |
 |------------|--------------------|-------------------------------------|
@@ -82,6 +85,6 @@ Existem dois tipos de recursos, Users e Customers. Users são os usuários e pod
 | PATCH      | api/users          | Atualiza os dados do usuário logado |
 
 
-## Consumindo a API
+### Consumindo a API
 
-Para evitar problemas, ao enviar requisições utilizar o header "Accept: application/json". Se estiver sendo utilizado o Postman, marcar a opção x-www-urlencoded na aba de Body. Após logar utilizar o token retornado no Header das novas requisições para ser autenticado. Ex: "Authorization: Bearer {token}".
+Para evitar problemas, ao enviar requisições utilizar o header "Accept: application/json". Após logar utilizar o token retornado no Header das novas requisições para ser autenticado. Ex: "Authorization: Bearer {token}".
