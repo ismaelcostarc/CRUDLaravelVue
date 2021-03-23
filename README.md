@@ -1,6 +1,6 @@
 # API Laravel
 
-API em Laravel 8 criada como Teste, feito junto com o front-end em Vue e Bootstrap.
+API em Laravel 8, com o front-end em Vue e Bootstrap.
 
 ## Instalação
 

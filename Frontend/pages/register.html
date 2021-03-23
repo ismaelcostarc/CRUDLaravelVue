@@ -17,7 +17,7 @@
     <span class="navbar-brand">GastroVita</span>
   </nav>
 
-  <div class="d-flex flex-column mt-5">
+  <div class="d-flex flex-column mt-5" id="root">
     <section class="h-100">
       <div class="container h-100">
         <div class="d-flex justify-content-center align-items-center">
@@ -28,19 +28,22 @@
                 <form v-on:submit.prevent="register(formData)">
                   <div class="form-group">
                     <label for="nome">Nome</label>
-                    <input v-model="formData.name" id="nome" type="nome" class="form-control" name="nome" value="" required autofocus />
+                    <input v-model="formData.name" id="nome" type="nome" class="form-control" name="nome" value=""
+                      required autofocus />
                   </div>
 
                   <div class="form-group">
                     <label for="email">E-mail</label>
-                    <input id="email" v-model="formData.email" type="email" class="form-control" name="email" value="" required autofocus />
+                    <input id="email" v-model="formData.email" type="email" class="form-control" name="email" value=""
+                      required autofocus />
                     <div class="invalid-feedback">Email inválido</div>
                   </div>
 
                   <div class="form-group">
                     <label for="password">Senha</label>
 
-                    <input id="password"  v-model="formData.password" type="password" class="form-control" name="password" required data-eye />
+                    <input id="password" v-model="formData.password" type="password" class="form-control"
+                      name="password" required data-eye />
                   </div>
 
                   <div class="form-group">
@@ -80,20 +83,11 @@
       },
       methods: {
         async register(formData) {
-          console.log('a')
-          if (!formData.email) {
-            alert('Informe o email!')
-          } else {
-            if (!formData.password) {
-              alert('Informe a senha!')
-            } else {
-              let token = await axios.post(`${server}/register`, formData)
+          let token = await axios.post(`${server}/users/register`, formData)
 
-              let path = window.location.pathname.replace('register.html', 'customers.html')
+          let path = window.location.pathname.replace('register.html', 'customers.html')
 
-              window.location.href = path + '?token=' + token.data.bearer_token
-            }
-          }
+          window.location.href = path + '?token=' + token.data.bearer_token
         }
       }
     })
