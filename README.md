@@ -1,6 +1,6 @@
-# API Laravel
+# CRUD Laravel + Vue
 
-API em Laravel 8, com o front-end em Vue e Bootstrap.
+API em Laravel 8, com o front-end em Vue e Bootstrap. Possui login, registro de usuário e uma lista com clientes.
 
 ## Instalação
 
