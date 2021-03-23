@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Gastrovita CRUD</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <span class="navbar-brand">GastroVita</span>
+    </nav>
+
+    <div class="d-flex flex-column mt-5" id="root">
+        <section class="h-100">
+            <div class="container h-100">
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class="card-wrapper">
+                        <div class="card fat">
+                            <div class="card-body">
+                                <h4 class="card-title text-center">Editar Cliente</h4>
+                                <form v-on:submit.prevent="editCustomer(formData)" class="mt-3">
+                                    <div class="form-group">
+                                        <label for="username-input">Nome</label>
+                                        <input type="text" class="form-control" v-model="formData.name" name="username"
+                                            id="username-input" placeholder="Digite o nome do usuário" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="medical_record-input">Histórico Médico</label>
+                                        <textarea class="form-control" v-model="formData.medical_record"
+                                            name="medical_record" id="medical_record-input"
+                                            placeholder="Digite o histórico médico" rows="5" cols="33"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone-input">Telefone</label>
+                                        <input type="tel" class="form-control" v-model="formData.phone" name="phone"
+                                            id="phone-input" placeholder="Digite o telefone">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cel-input">Celular</label>
+                                        <input type="tel" class="form-control" v-model="formData.cel" name="cel"
+                                            id="cel-input" placeholder="Digite o celular">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="dep-input">CEP</label>
+                                        <input type="text" class="form-control" v-model="formData.dep" name="dep"
+                                            id="dep-input" placeholder="Digite o CEP">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="address-input">Endereço</label>
+                                        <input type="text" class="form-control" v-model="formData.address"
+                                            name="address" id="address-input" placeholder="Digite o endereço">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="complement-input">Complemento</label>
+                                        <input type="text" class="form-control" v-model="formData.complement"
+                                            name="complement" id="complement-input" placeholder="Digite o complemento">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="address_number-input">Número</label>
+                                        <input type="text" class="form-control" v-model="formData.address_number"
+                                            name="address_number" id="address_number-input"
+                                            placeholder="Digite o número">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="district-input">Bairro</label>
+                                        <input type="text" class="form-control" v-model="formData.district"
+                                            name="district" id="district-input" placeholder="Digite o bairro">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="state-input">Estado</label>
+                                        <input type="text" class="form-control" v-model="formData.state" name="state"
+                                            id="state-input" placeholder="Digite o estado">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="city-input">Cidade</label>
+                                        <input type="text" class="form-control" v-model="formData.city" name="city"
+                                            id="city-input" placeholder="Digite a cidade">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="birth-input">Data de Nascimento</label>
+                                        <input type="date" class="form-control" v-model="formData.birth" name="birth"
+                                            id="birth-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="age-input">Idade</label>
+                                        <input type="number" class="form-control" v-model="formData.age" name="age"
+                                            id="age-input" min="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="gender-input">Gênero</label>
+                                        <input type="text" class="form-control" v-model="formData.gender" name="gender"
+                                            id="gender-input" placeholder="Digite o gênero">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="rg-input">RG</label>
+                                        <input type="text" class="form-control" v-model="formData.rg" name="rg"
+                                            id="rg-input" placeholder="Digite o RG">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="organ_rg-input">Órgão</label>
+                                        <input type="text" class="form-control" v-model="formData.organ_rg"
+                                            name="organ_rg" id="organ_rg-input" placeholder="Digite o órgão">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cpf-input">CPF</label>
+                                        <input type="text" class="form-control" v-model="formData.cpf" name="cpf"
+                                            id="cpf-input" placeholder="Digite o CPF">
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary">Atualizar</button>
+
+                                </form>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        };
+
+        const server = 'http://127.0.0.1:8000/api'
+        const token = getUrlParameter('token')
+        new Vue({
+            el: '#root',
+            data() {
+                return {
+                    formData: {}
+                }
+            },
+            methods: {
+                async editCustomer(formData) {
+                    const id = getUrlParameter('id')
+
+                    //Para evitar problemas é necessário retirar os valores nulos e vazios
+                    for (element in formData) {
+                        if (formData[element] == "" || formData[element] == null) {
+                            delete formData[element]
+                        }
+                    }
+
+                    let response = await axios.patch(`${server}/customers/${id}`, formData,
+                        {
+                            headers: {
+                                Authorization: 'Bearer ' + token,
+                            }
+                        }
+                    )
+
+                    //console.log(response)
+
+                    let path = window.location.pathname.replace('editcustomer.html', 'customers.html')
+
+                    //Retirar o ?id=
+                    window.location.href = path + '?token=' + token
+                },
+            },
+            async created() {
+                const id = getUrlParameter('id')
+
+                let response = await axios.get(`${server}/customers/` + id,
+                    {
+                        headers: {
+                            Authorization: 'Bearer ' + token
+                        }
+                    }
+                )
+
+                result = response.data
+
+                //console.log(result)
+                this.$data.formData = result
+
+                console.log(this.$data)
+
+            }
+
+        })
+    </script>
+</body>
+
+</html>

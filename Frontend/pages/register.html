@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Gastrovita CRUD</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <span class="navbar-brand">GastroVita</span>
+  </nav>
+
+  <div class="d-flex flex-column mt-5">
+    <section class="h-100">
+      <div class="container h-100">
+        <div class="d-flex justify-content-center align-items-center">
+          <div class="card-wrapper">
+            <div class="card fat">
+              <div class="card-body">
+                <h4 class="card-title">Criar conta</h4>
+                <form v-on:submit.prevent="register(formData)">
+                  <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input v-model="formData.name" id="nome" type="nome" class="form-control" name="nome" value="" required autofocus />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input id="email" v-model="formData.email" type="email" class="form-control" name="email" value="" required autofocus />
+                    <div class="invalid-feedback">Email inválido</div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="password">Senha</label>
+
+                    <input id="password"  v-model="formData.password" type="password" class="form-control" name="password" required data-eye />
+                  </div>
+
+                  <div class="form-group">
+                    <div>
+                      <label for="image">Escolha uma foto:</label>
+                    </div>
+                    <input type="file" id="image" name="img" accept="image/*" value="Teste" />
+                  </div>
+
+                  <div class="form-group m-0">
+                    <button type="submit" class="btn btn-primary btn-block">
+                      Criar
+                    </button>
+                  </div>
+
+                  <div class="mt-4 text-center">
+                    Já possui conta?
+                    <a href="login.html">Entrar</a>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const server = 'http://127.0.0.1:8000/api'
+
+    new Vue({
+      el: '#root',
+      data: {
+        formData: {}
+      },
+      methods: {
+        async register(formData) {
+          console.log('a')
+          if (!formData.email) {
+            alert('Informe o email!')
+          } else {
+            if (!formData.password) {
+              alert('Informe a senha!')
+            } else {
+              let token = await axios.post(`${server}/register`, formData)
+
+              let path = window.location.pathname.replace('register.html', 'customers.html')
+
+              window.location.href = path + '?token=' + token.data.bearer_token
+            }
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

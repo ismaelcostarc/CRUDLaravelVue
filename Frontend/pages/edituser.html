@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Gastrovita CRUD</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <span class="navbar-brand">GastroVita</span>
+    </nav>
+
+    <div class="d-flex flex-column mt-5" id="root">
+        <section class="h-100">
+            <div class="container h-100">
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class="card-wrapper">
+                        <div class="card fat">
+                            <div class="card-body">
+                                <h4 class="card-title text-center">Editar Cliente</h4>
+                                <form v-on:submit.prevent="editUser(formData)" class="mt-3">
+                                    <div class="form-group">
+                                        <label for="username-input">Nome</label>
+                                        <input type="text" class="form-control" v-model="formData.name" name="username"
+                                            id="username-input" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">E-mail</label>
+                                        <input id="email" type="email" class="form-control" v-model="formData.email"
+                                            name="email" value="" required autofocus />
+                                        <div class="invalid-feedback">Email inválido</div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="password">Senha</label>
+
+                                        <input id="password" type="password" class="form-control" name="password"
+                                            placeholder="**********" data-eye />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div>
+                                            <label for="image">Escolha uma foto:</label>
+                                        </div>
+                                        <img>
+                                        <input type="file" id="image" name="img" accept="image/*" value="Teste" />
+                                    </div>
+
+                                    <div class="form-group m-0">
+                                        <button type="submit" class="btn btn-primary btn-block">
+                                            Atualizar
+                                        </button>
+                                    </div>
+
+                                    <div class="form-group m-0 mt-2">
+                                        <a v-on:click="deleteUser" class="btn btn-danger btn-block">
+                                            Apagar Conta
+                                        </a>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        };
+
+        const server = 'http://127.0.0.1:8000/api'
+        const token = getUrlParameter('token')
+        new Vue({
+            el: '#root',
+            data() {
+                return {
+                    formData: {}
+                }
+            },
+            methods: {
+                async editUser(formData) {
+                    //Para evitar problemas é necessário retirar os valores nulos e vazios
+                    for (element in formData) {
+                        if (formData[element] == "" || formData[element] == null) {
+                            delete formData[element]
+                        }
+                    }
+
+                    let response = await axios.patch(`${server}/users/`, formData,
+                        {
+                            headers: {
+                                Authorization: 'Bearer ' + token,
+                            }
+                        }
+                    )
+
+                    //console.log(response)
+
+                    let path = window.location.pathname.replace('edituser.html', 'customers.html')
+
+                    //Retirar o ?id=
+                    window.location.href = path + '?token=' + token
+                },
+                async deleteUser() {
+                    await axios.delete(`${server}/users`,
+                        {
+                            headers: {
+                                Authorization: 'Bearer ' + token
+                            }
+                        }
+                    )
+                    window.location.href = window.location.pathname + '/index.html'
+                }
+            },
+            async created() {
+                let response = await axios.get(`${server}/users`,
+                    {
+                        headers: {
+                            Authorization: 'Bearer ' + token
+                        }
+                    }
+                )
+
+                result = response.data
+
+                //console.log(result)
+                this.$data.formData = result
+
+                console.log(this.$data)
+
+            }
+
+        })
+    </script>
+</body>
+
+</html>
