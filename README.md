@@ -4,7 +4,7 @@ API em Laravel 8, com o front-end em Vue e Bootstrap. Possui login, registro de 
 
 ## Instalação
 
-Para instalar as dependências:
+Para instalar as dependências dentro da pasta Backend:
 ```
 composer install
 ``` 
